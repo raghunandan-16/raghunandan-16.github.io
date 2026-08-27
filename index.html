@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raghunandan Ganesh Mante — Software Engineer</title>
+<meta name="description" content="Software Engineer specializing in Java microservices, DevOps automation, and observability tooling.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+  /* ============ DESIGN TOKENS ============ */
+  :root{
+    --bg: #090c12;
+    --bg-grid-line: rgba(255,255,255,0.035);
+    --panel: #11161f;
+    --panel-alt: #0d1119;
+    --border: #232c3a;
+    --border-bright: #354158;
+    --text: #e7ecf6;
+    --text-dim: #8b96ac;
+    --text-faint: #59637a;
+    --teal: #45e0cb;
+    --teal-dim: rgba(69,224,203,0.12);
+    --amber: #f2a93b;
+    --amber-dim: rgba(242,169,59,0.12);
+    --red-flag: #e2586b;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+    --radius: 8px;
+    --maxw: 1080px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:
+      linear-gradient(var(--bg-grid-line) 1px, transparent 1px) 0 0/100% 40px,
+      linear-gradient(90deg, var(--bg-grid-line) 1px, transparent 1px) 0 0/40px 100%,
+      var(--bg);
+    color:var(--text);
+    font-family:var(--font-sans);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px;}
+
+  /* ============ TOP BAR ============ */
+  .topbar{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter:blur(10px);
+    background:rgba(9,12,18,0.82);
+    border-bottom:1px solid var(--border);
+  }
+  .topbar-inner{
+    max-width:var(--maxw); margin:0 auto; padding:14px 24px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .logo{
+    font-family:var(--font-mono); font-weight:700; font-size:14px;
+    letter-spacing:0.02em; color:var(--text);
+    display:flex; align-items:center; gap:10px;
+  }
+  .logo .dot{width:8px; height:8px; border-radius:50%; background:var(--teal); box-shadow:0 0 8px var(--teal); animation:pulse 2.4s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:1;} 50%{opacity:0.35;}}
+
+  nav.links{display:flex; gap:28px; font-family:var(--font-mono); font-size:12.5px;}
+  nav.links a{
+    text-decoration:none; color:var(--text-dim); letter-spacing:0.03em;
+    padding-bottom:4px; border-bottom:1px solid transparent; transition:color .15s, border-color .15s;
+  }
+  nav.links a:hover{color:var(--teal); border-color:var(--teal);}
+
+  .menu-btn{display:none; background:none; border:1px solid var(--border); color:var(--text); border-radius:6px; padding:6px 10px; font-family:var(--font-mono); cursor:pointer;}
+  .topbar-avatar{
+    width:34px; height:34px;
+    border-radius:50%;
+    object-fit:cover;
+    border:1px solid var(--border-bright);
+    margin-left:18px;
+    flex-shrink:0;
+  }
+  @media (max-width:760px){
+		.topbar-avatar{width:28px; height:28px; margin-left:10px;}
+    nav.links{
+      position:fixed; inset:56px 0 auto 0; background:var(--panel);
+      flex-direction:column; padding:18px 24px; gap:16px;
+      border-bottom:1px solid var(--border);
+      transform:translateY(-8px); opacity:0; pointer-events:none;
+      transition:transform .18s ease, opacity .18s ease;
+    }
+    nav.links.open{transform:translateY(0); opacity:1; pointer-events:auto;}
+    .menu-btn{display:block;}
+  }
+
+  /* ============ SECTION SCAFFOLDING ============ */
+  section{padding:0 88px;}
+
+  .eyebrow{
+    font-family:var(--font-mono); font-size:18px; letter-spacing:0.12em; font-weight:700;
+    color:var(--teal); text-transform:uppercase; margin:0 0 12px;
+  }
+  @media (max-width:760px){
+    .eyebrow{font-size:14px;}
+}
+  h2.section-title{
+    font-family:var(--font-mono); font-size:clamp(22px,3vw,30px);
+    margin:0 0 36px; font-weight:700; color:var(--text);
+  }
+  .panel{
+    background:var(--panel); border:1px solid var(--border); border-radius:var(--radius);
+  }
+  .panel-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:10px 16px; border-bottom:1px solid var(--border);
+    font-family:var(--font-mono); font-size:11px; color:var(--text-faint);
+    letter-spacing:0.05em;
+  }
+  .panel-head .traffic{display:flex; gap:6px;}
+  .panel-head .traffic span{width:8px; height:8px; border-radius:50%; background:var(--border-bright); display:inline-block;}
+
+  /* ============ HERO ============ */
+  .hero{padding:72px 0 60px;}
+  .hero-top{display:flex; flex-wrap:wrap; gap:40px; align-items:flex-start; justify-content:space-between;}
+  .hero-avatar{
+    width:150px; height:150px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid var(--border-bright);
+    flex-shrink:0;
+  }
+  @media (max-width:760px){
+    .hero-avatar{width:100px; height:100px; margin:0 auto;}
+  }
+  .hero-name{
+    font-family:var(--font-mono); font-weight:800; font-size:clamp(32px,5.5vw,54px);
+    margin:0; letter-spacing:-0.01em; line-height:1.05;
+  }
+  .hero-role{color:var(--teal); font-family:var(--font-mono); font-size:clamp(15px,2vw,19px); margin:10px 0 18px;}
+  .hero-desc{max-width:560px; color:var(--text-dim); font-size:15.5px; margin:0 0 26px;}
+  .status-pill{
+    display:inline-flex; align-items:center; gap:8px; font-family:var(--font-mono);
+    font-size:11.5px; letter-spacing:0.05em; color:var(--teal);
+    border:1px solid var(--teal); background:var(--teal-dim);
+    padding:6px 12px; border-radius:20px; margin-bottom:22px;
+  }
+  .status-pill .dot{width:6px; height:6px; border-radius:50%; background:var(--teal); animation:pulse 2s ease-in-out infinite;}
+
+  .cta-row{display:flex; gap:12px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--font-mono); font-size:13px; padding:11px 18px; border-radius:6px;
+    text-decoration:none; letter-spacing:0.02em; border:1px solid var(--border-bright);
+    transition:transform .12s ease, border-color .12s ease, background .12s ease;
+    display:inline-block;
+  }
+  .btn:hover{transform:translateY(-1px);}
+  .btn-primary{background:var(--teal); color:#06110f; border-color:var(--teal); font-weight:700;}
+  .btn-primary:hover{background:#5ceada;}
+  .btn-ghost{color:var(--text); background:transparent;}
+  .btn-ghost:hover{border-color:var(--teal); color:var(--teal);}
+
+  /* ---- metrics dashboard row (signature element) ---- */
+  .metrics-panel{margin-top:52px;}
+  .metrics-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  }
+  .metric{
+    padding:20px 18px; border-right:1px solid var(--border); border-top:1px solid var(--border);
+    position:relative; overflow:hidden;
+  }
+  .metric:nth-child(-n+5){border-top:none;}
+  .metric:last-child, .metric:nth-child(5){border-right:none;}
+  .metric-label{font-family:var(--font-mono); font-size:10.5px; color:var(--text-faint); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:10px;}
+  .metric-value{font-family:var(--font-mono); font-weight:700; font-size:26px; color:var(--text);}
+  .metric-value .unit{font-size:14px; color:var(--teal); margin-left:2px;}
+  .metric-spark{display:flex; align-items:flex-end; gap:2px; height:18px; margin-top:10px;}
+  .metric-spark i{flex:1; background:var(--teal); opacity:0.55; border-radius:1px; animation:rise 1.4s ease-out both;}
+  @keyframes rise{from{transform:scaleY(0); transform-origin:bottom;} to{transform:scaleY(1);}}
+
+  @media (max-width:760px){
+    .metric{border-right:none !important; border-top:1px solid var(--border) !important;}
+    .metric:first-child{border-top:none !important;}
+  }
+
+  /* ============ ABOUT ============ */
+  .about-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:28px;}
+  @media (max-width:760px){.about-grid{grid-template-columns:1fr;}}
+  .about-body{padding:24px; color:var(--text-dim); font-size:15px;}
+  .about-body p{margin:0 0 14px;}
+  .about-body strong{color:var(--text); font-weight:600;}
+  .facts{padding:22px 24px;}
+  .fact-row{display:flex; justify-content:space-between; padding:9px 0; border-bottom:1px dashed var(--border); font-size:13.5px;}
+  .fact-row:last-child{border-bottom:none;}
+  .fact-row span:first-child{color:var(--text-faint); font-family:var(--font-mono); font-size:11.5px;}
+  .fact-row span:last-child{color:var(--text); text-align:right;}
+
+  /* ============ EXPERIENCE (pipeline) ============ */
+  .pipeline{position:relative; padding-left:34px;}
+  .pipeline::before{
+    content:''; position:absolute; left:9px; top:6px; bottom:6px; width:2px;
+    background:linear-gradient(var(--teal), var(--border) 90%);
+  }
+  .stage{position:relative; margin-bottom:20px;}
+  .stage-node{
+    position:absolute; left:-34px; top:22px; width:20px; height:20px; border-radius:50%;
+    background:var(--panel); border:2px solid var(--teal); display:flex; align-items:center; justify-content:center;
+  }
+  .stage-node::after{content:''; width:6px; height:6px; border-radius:50%; background:var(--teal);}
+  .stage summary{
+    list-style:none; cursor:pointer; padding:18px 20px;
+    display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:8px;
+  }
+  .stage summary::-webkit-details-marker{display:none;}
+  .stage-title{font-family:var(--font-mono); font-weight:700; font-size:16px;}
+  .stage-org{color:var(--teal); font-weight:500;}
+  .stage-meta{font-family:var(--font-mono); font-size:11.5px; color:var(--text-faint); letter-spacing:0.03em;}
+  .stage-toggle{font-family:var(--font-mono); font-size:11px; color:var(--text-faint);}
+  .stage[open] .stage-toggle::after{content:' [ – ]';}
+  .stage:not([open]) .stage-toggle::after{content:' [ + ]';}
+  .stage-body{padding:0 20px 20px; color:var(--text-dim); font-size:14.5px;}
+  .stage-body ul{margin:0; padding-left:18px;}
+  .stage-body li{margin-bottom:9px;}
+  .stage-body li::marker{color:var(--teal);}
+  .stage-body b{color:var(--text);}
+
+  /* ============ EDUCATION ============ */
+  .edu-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  @media (max-width:760px){.edu-grid{grid-template-columns:1fr;}}
+  .edu-card{padding:22px;}
+  .edu-degree{font-family:var(--font-mono); font-weight:700; font-size:15.5px; margin-bottom:4px;}
+  .edu-school{color:var(--teal); font-size:14px; margin-bottom:10px;}
+  .edu-meta{font-family:var(--font-mono); font-size:11.5px; color:var(--text-faint); margin-bottom:14px;}
+  .gpa-badge{
+    display:inline-block; font-family:var(--font-mono); font-size:11.5px;
+    background:var(--amber-dim); color:var(--amber); border:1px solid var(--amber);
+    padding:3px 9px; border-radius:4px; margin-bottom:12px;
+  }
+  .edu-course{color:var(--text-dim); font-size:13.5px;}
+
+  /* ============ PROJECTS ============ */
+  .proj-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  @media (max-width:760px){.proj-grid{grid-template-columns:1fr;}}
+  .proj-card{padding:22px; display:flex; flex-direction:column; height:100%;}
+  .proj-title{font-family:var(--font-mono); font-weight:700; font-size:16px; margin-bottom:8px;}
+  .proj-badge{
+    display:inline-block; align-self:flex-start; font-family:var(--font-mono); font-size:10.5px;
+    color:var(--amber); border:1px solid var(--amber); background:var(--amber-dim);
+    padding:2px 8px; border-radius:12px; margin-bottom:12px; letter-spacing:0.04em;
+  }
+  .proj-desc{color:var(--text-dim); font-size:14px; flex-grow:1; margin-bottom:14px;}
+  .proj-tags{display:flex; flex-wrap:wrap; gap:6px;}
+  .tag{font-family:var(--font-mono); font-size:10.5px; color:var(--text-dim); border:1px solid var(--border); padding:3px 8px; border-radius:4px;}
+
+  /* ============ SKILLS ============ */
+  .skills-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  @media (max-width:760px){.skills-grid{grid-template-columns:1fr;}}
+  .skill-panel{padding:22px;}
+  .skill-panel h3{font-family:var(--font-mono); font-size:13px; color:var(--text-faint); text-transform:uppercase; letter-spacing:0.06em; margin:0 0 16px;}
+  .chip-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{
+    font-family:var(--font-mono); font-size:12.5px; color:var(--text);
+    background:var(--panel-alt); border:1px solid var(--border);
+    padding:6px 11px; border-radius:5px; transition:border-color .15s, color .15s;
+  }
+  .chip:hover{border-color:var(--teal); color:var(--teal);}
+
+  /* ============ ACCOMPLISHMENTS ============ */
+  .acc-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  @media (max-width:760px){.acc-grid{grid-template-columns:1fr;}}
+  .acc-card{padding:24px; text-align:left;}
+  .acc-num{font-family:var(--font-mono); font-weight:800; font-size:30px; color:var(--amber); margin-bottom:8px;}
+  .acc-label{font-size:13.5px; color:var(--text-dim);}
+  .acc-img{
+    width:100%; height:150px; object-fit:cover; border-radius:6px;
+    border:1px solid var(--border); margin-bottom:16px; display:block;
+}
+
+  /* ============ CONTACT / FOOTER ============ */
+  .contact-panel{padding:40px; text-align:center;}
+  .contact-panel .eyebrow{justify-content:center; display:block; text-align:center;}
+  .contact-title{font-family:var(--font-mono); font-size:clamp(22px,3.5vw,32px); font-weight:700; margin:0 0 14px;}
+  .contact-sub{color:var(--text-dim); max-width:480px; margin:0 auto 26px; font-size:15px;}
+  .contact-links{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+
+  footer{padding:28px 0 50px; text-align:center; font-family:var(--font-mono); font-size:11.5px; color:var(--text-faint);}
+
+  .reveal{opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="logo"><span class="dot"></span> RGM.dev</div>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation">≡ menu</button>
+    <div style="display:flex; align-items:center;">
+      <nav class="links" id="navLinks">
+        <a href="#about">about</a>
+        <a href="#experience">experience</a>
+        <a href="#projects">projects</a>
+        <a href="#skills">skills</a>
+        <a href="#contact">contact</a>
+      </nav>
+      <img src="images/profile.jpg" alt="" class="topbar-avatar">
+    </div>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<header class="hero wrap">
+  <div class="status-pill"><span class="dot"></span> STATUS: OPEN TO NEW ROLES</div>
+  <div class="hero-top">
+    <div>
+      <h1 class="hero-name">Raghunandan Ganesh Mante</h1>
+      <div class="hero-role">// Software Engineer — Java Microservices &amp; Observability Systems</div>
+      <p class="hero-desc">I build and operate distributed systems: designing microservices, automating CI/CD pipelines, and instrumenting production monitoring stacks so teams can ship with confidence. Recently completed M.S. in Computer Science at NC State(Raleigh, USA), focused on machine learning systems.</p>
+      <div class="cta-row">
+        <a href="#experience" class="btn btn-primary">View experience</a>
+        <a href="#contact" class="btn btn-ghost">Get in touch</a>
+        <a href="RESUME.pdf" class="btn btn-ghost">Download resume ↓</a>
+      </div>
+    </div>
+	<img src="images/profile.jpg" alt="" class="hero-avatar">
+  </div>
+
+  <div class="panel metrics-panel reveal">
+    <div class="panel-head">
+      <span>career_metrics.json — live</span>
+      <span class="traffic"><span style="background:var(--teal)"></span><span style="background:var(--amber)"></span><span></span></span>
+    </div>
+    <div class="metrics-grid">
+      <div class="metric">
+        <div class="metric-label">Stability improved</div>
+        <div class="metric-value">25<span class="unit">%</span></div>
+        <div class="metric-spark">
+          <i style="height:30%; animation-delay:.0s"></i><i style="height:45%; animation-delay:.05s"></i>
+          <i style="height:60%; animation-delay:.1s"></i><i style="height:80%; animation-delay:.15s"></i>
+          <i style="height:100%; animation-delay:.2s"></i>
+        </div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Inference speedup</div>
+        <div class="metric-value">720<span class="unit">×</span></div>
+        <div class="metric-spark">
+          <i style="height:20%"></i><i style="height:35%; animation-delay:.05s"></i>
+          <i style="height:55%; animation-delay:.1s"></i><i style="height:75%; animation-delay:.15s"></i>
+          <i style="height:100%; animation-delay:.2s"></i>
+        </div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Test coverage reached</div>
+        <div class="metric-value">94<span class="unit">%</span></div>
+        <div class="metric-spark">
+          <i style="height:60%"></i><i style="height:70%; animation-delay:.05s"></i>
+          <i style="height:82%; animation-delay:.1s"></i><i style="height:90%; animation-delay:.15s"></i>
+          <i style="height:94%; animation-delay:.2s"></i>
+        </div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Txns handled / hr</div>
+        <div class="metric-value">100<span class="unit">K+</span></div>
+        <div class="metric-spark">
+          <i style="height:40%"></i><i style="height:55%; animation-delay:.05s"></i>
+          <i style="height:65%; animation-delay:.1s"></i><i style="height:85%; animation-delay:.15s"></i>
+          <i style="height:100%; animation-delay:.2s"></i>
+        </div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Bolt Awards earned</div>
+        <div class="metric-value">05</div>
+        <div class="metric-spark">
+          <i style="height:20%"></i><i style="height:40%; animation-delay:.05s"></i>
+          <i style="height:60%; animation-delay:.1s"></i><i style="height:80%; animation-delay:.15s"></i>
+          <i style="height:100%; animation-delay:.2s"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="wrap">
+  <p class="eyebrow">01 · About</p>
+  <h2 class="section-title">Systems engineer, dashboard-obsessed.</h2>
+  <div class="about-grid">
+    <div class="panel about-body reveal">
+      <p>I spent four years at <strong>NICE Ltd</strong> growing from Research Intern to Software Engineer, working across a Java-based automation platform used by four cross-functional teams. My focus areas: breaking monoliths into <strong>Dockerized microservices on Kubernetes</strong>, wiring up <strong>Prometheus, Grafana, and the ELK stack</strong> for observability, and automating <strong>Jenkins CI/CD</strong> pipelines with static analysis gates (SonarQube, Veracode, Black Duck).</p>
+      <p>I have now completed my postgraduation - Master's in Computer Science at <strong>North Carolina State University</strong> with a 4.0 GPA, going deeper on algorithms, machine learning, and data systems — including research on compressing Graph Neural Networks for 720× faster inference.</p>
+      <p>I care about the critical parts of software: test coverage, release stability, onboarding time, and making systems observable enough that nobody has to guess why something broke.</p>
+    </div>
+    <div class="panel facts reveal">
+      <div class="fact-row"><span>ROLE</span><span>Software Engineer</span></div>
+      <div class="fact-row"><span>FOCUS</span><span>Backend · DevOps · ML Systems</span></div>
+      <div class="fact-row"><span>EDUCATION</span><span>M.S. CS @ NC State</span></div>
+      <div class="fact-row"><span>PRIOR</span><span>B.Tech CS @ WCE Sangli</span></div>
+      <div class="fact-row"><span>AVAILABILITY</span><span style="color:var(--teal)">Open to opportunities</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCE ============ -->
+<section id="experience" class="wrap">
+  <p class="eyebrow">02 · Experience</p>
+  <h2 class="section-title">Career pipeline</h2>
+
+  <div class="pipeline">
+
+    <details class="stage panel reveal" open>
+      <div class="stage-node"></div>
+      <summary>
+        <div>
+          <span class="stage-title">Software Engineer</span> — <span class="stage-org">NICE Ltd</span>
+        </div>
+        <div class="stage-meta">Pune, India · Aug 2022 – Jul 2024 <span class="stage-toggle"></span></div>
+      </summary>
+      <div class="stage-body">
+        <ul>
+          <li>Engineered multi-microservice Java automation software with Agile practices, orchestrating releases and bug hunts across <b>4 teams</b> — improving software stability by <b>25%</b>.</li>
+          <li>Facilitated <b>30+ knowledge sessions</b> using pair programming and code review, elevating code quality via TDD and cutting new-developer onboarding time by <b>25%</b>.</li>
+          <li>Optimized statistical report generation, boosting efficiency by <b>13.3%</b> and resolving issues affecting <b>35% of customers</b> — earned a Bolt Award (Q3 2023).</li>
+          <li>Designed the HLD for an Elasticsearch upgrade, delivering <b>70%</b> of the release across cross-functional teams — earned the Annual SPOT Award (2023).</li>
+          <li>Migrated a monolithic Java application into Dockerized microservices on Kubernetes with Helm, lifting scalability by <b>42%</b> and cutting environment install time by <b>67%</b>.</li>
+          <li>Led QA for a five-person team, reducing vulnerabilities by <b>28%</b> using Veracode, Black Duck, and SonarQube.</li>
+          <li>Wrote Python and Shell migration scripts, cutting upgrade cycle time by ~<b>41%</b> across three major versions — earned a Bolt Award (Q3 2022).</li>
+          <li>Automated end-to-end Jenkins CI/CD pipelines with integrated static analysis, reducing manual effort by <b>66.7%</b> and lifting team coding efficiency by <b>18%</b>.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="stage panel reveal">
+      <div class="stage-node"></div>
+      <summary>
+        <div>
+          <span class="stage-title">Associate Software Engineer</span> — <span class="stage-org">NICE Ltd</span>
+        </div>
+        <div class="stage-meta">Pune, India · Aug 2020 – Jul 2022 <span class="stage-toggle"></span></div>
+      </summary>
+      <div class="stage-body">
+        <ul>
+          <li>Implemented monitoring with JMX beans, Prometheus, and Grafana, improving observability by <b>40%</b> and cutting incident response time by <b>25%</b> — Bolt Award (Q1 2021).</li>
+          <li>Wrote SQL scripts and stored procedures for data transformation, shortening upgrade cycle time by <b>12%</b>.</li>
+          <li>Spearheaded ELK stack integration for log analysis, cutting debugging time by <b>40%</b> and speeding up bug tracing by <b>35%</b> — Bolt Award (Q3 2021).</li>
+          <li>Built a Java/Spring Boot automation app translating SOAP to REST, handling <b>100,000+ hourly transactions</b> with zero failures while cutting CPU usage by <b>40%</b> and memory by <b>25%</b>.</li>
+          <li>Built end-to-end and integration tests with JUnit and Cucumber, cutting manual testing across <b>33%</b> of microservices.</li>
+          <li>Raised test coverage to <b>94%</b> by writing tests for <b>64%</b> of microservices — Bolt Award (Q2 2022).</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="stage panel reveal">
+      <div class="stage-node"></div>
+      <summary>
+        <div>
+          <span class="stage-title">Research Intern</span> — <span class="stage-org">NICE Ltd</span>
+        </div>
+        <div class="stage-meta">Pune, India · Jan 2020 – Jul 2020 <span class="stage-toggle"></span></div>
+      </summary>
+      <div class="stage-body">
+        <ul>
+          <li>Engineered a Spring Boot + Hibernate application, improving performance by <b>23%</b> as a simulation environment for automation/monitoring integration.</li>
+          <li>Researched Java software monitoring via Prometheus and Grafana, cutting failure detection time by <b>30%</b> through JMX bean instrumentation — Bolt Award (Q3 2020).</li>
+          <li>Ran JMeter load tests under varied conditions, identifying stress points and lifting high-traffic performance by <b>17%</b>.</li>
+        </ul>
+      </div>
+    </details>
+
+  </div>
+</section>
+
+<!-- ============ EDUCATION ============ -->
+<section id="education" class="wrap">
+  <p class="eyebrow">03 · Education</p>
+  <h2 class="section-title">Coursework and credentials.</h2>
+  <div class="edu-grid">
+    <div class="panel edu-card reveal">
+      <div class="gpa-badge">GPA 4.0 / 4.0</div>
+      <div class="edu-degree">M.S., Computer Science</div>
+      <div class="edu-school">North Carolina State University, Raleigh, NC</div>
+      <div class="edu-meta">Aug 2024 – Aug 2026</div>
+      <div class="edu-course">Design &amp; Analysis of Algorithms · Automated Learning &amp; Data Analysis · Software Engineering · Foundations of Data Science · Database Management Systems · Neural Networks</div>
+    </div>
+    <div class="panel edu-card reveal">
+      <div class="gpa-badge" style="border-color:var(--teal); color:var(--teal); background:var(--teal-dim)">GPA 3.5 / 4.0</div>
+      <div class="edu-degree">B.Tech, Computer Science</div>
+      <div class="edu-school">Walchand College of Engineering, Sangli, India</div>
+      <div class="edu-meta">Aug 2016 – Aug 2020</div>
+      <div class="edu-course">Foundational coursework in data structures, algorithms, databases, and software systems.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section id="projects" class="wrap">
+  <p class="eyebrow">04 · Projects</p>
+  <h2 class="section-title">Academic &amp; hackathon builds.</h2>
+  <div class="proj-grid">
+    <div class="panel proj-card reveal">
+      <span class="proj-badge">1ST PLACE · HACK_NCSTATE 2025</span>
+      <div class="proj-title">Sightbuddy</div>
+      <p class="proj-desc">A GenAI-powered assistive application built at Hack_NCSTATE 2025 (hosted by NC State &amp; Major League Hacking), taking first prize in the GenAI category.</p>
+      <div class="proj-tags"><span class="tag">GenAI</span><span class="tag">Accessibility</span><span class="tag">Hackathon</span></div>
+    </div>
+    <div class="panel proj-card reveal">
+      <span class="proj-badge">RESEARCH PROJECT</span>
+      <div class="proj-title">Efficient GNNs on ogbn-products</div>
+      <p class="proj-desc">Applied quantization, feature compression, pruning, sparsification, and knowledge distillation to a GraphSAGE + SLE + C&amp;S baseline — reaching 22.5M samples/sec throughput (720× faster inference) via MLP distillation, with 0.771 test accuracy and 68% feature-memory reduction using autoencoder-based compression.</p>
+      <div class="proj-tags"><span class="tag">GNNs</span><span class="tag">Model Compression</span><span class="tag">PyTorch</span><span class="tag">Distillation</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section id="skills" class="wrap">
+  <p class="eyebrow">05 · Skills</p>
+  <h2 class="section-title">Languages, frameworks, and tooling.</h2>
+  <div class="skills-grid">
+    <div class="panel skill-panel reveal">
+      <h3>Languages &amp; Frameworks</h3>
+      <div class="chip-row">
+        <span class="chip">Java</span><span class="chip">Python</span><span class="chip">C</span><span class="chip">C++</span>
+        <span class="chip">JavaScript</span><span class="chip">SQL</span><span class="chip">PromQL</span>
+        <span class="chip">HTML/CSS</span><span class="chip">Spring MVC</span><span class="chip">Spring Boot</span>
+        <span class="chip">Hibernate</span><span class="chip">JUnit</span><span class="chip">Cucumber</span>
+        <span class="chip">Maven</span><span class="chip">TDD</span><span class="chip">CI/CD</span>
+      </div>
+    </div>
+    <div class="panel skill-panel reveal">
+      <h3>Tools &amp; Databases</h3>
+      <div class="chip-row">
+        <span class="chip">Git</span><span class="chip">Jenkins</span><span class="chip">Kubernetes</span><span class="chip">Docker</span>
+        <span class="chip">Helm</span><span class="chip">Elasticsearch</span><span class="chip">Kibana</span>
+        <span class="chip">Prometheus</span><span class="chip">Grafana</span><span class="chip">JMeter</span>
+        <span class="chip">JConsole</span><span class="chip">Veracode</span><span class="chip">Black Duck</span>
+        <span class="chip">SonarQube</span><span class="chip">Postman</span><span class="chip">SVN</span>
+        <span class="chip">AWS</span><span class="chip">OpenAM</span><span class="chip">MySQL</span>
+        <span class="chip">PostgreSQL</span><span class="chip">MSSQL</span><span class="chip">MongoDB</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ACCOMPLISHMENTS ============ -->
+<section id="accomplishments" class="wrap">
+  <p class="eyebrow">06 · Accomplishments</p>
+  <h2 class="section-title">Recognition along the way.</h2>
+  <div class="acc-grid">
+    <div class="panel acc-card reveal">
+	  <img class="acc-img" src="images/hackathon-award.jpg" alt="Hack_NCSTATE 2025 GenAI award">
+      <div class="acc-num">01</div>
+      <div class="acc-label">1st Prize, GenAI category — Hack_NCSTATE 2025 (NC State × Major League Hacking) for Sightbuddy.</div>
+    </div>
+    <div class="panel acc-card reveal">
+	  <img class="acc-img" src="images/spot-award.jpg" alt="NICE Annual SPOT Award">
+      <div class="acc-num">01</div>
+      <div class="acc-label">Annual SPOT Award at NICE for leading the HLD and implementation of an Elasticsearch upgrade.</div>
+    </div>
+    <div class="panel acc-card reveal">
+      <div class="acc-num">05</div>
+      <div class="acc-label">Bolt Awards earned across Research Intern, Associate Software Engineer, and Software Engineer tenures at NICE.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="wrap">
+  <div class="panel contact-panel reveal">
+    <p class="eyebrow">07 · Contact</p>
+    <div class="contact-title">Let's build something reliable.</div>
+    <p class="contact-sub">Open to Software Engineer and Backend/DevOps roles. Reach out directly or find me on the links below.</p>
+    <div class="contact-links">
+      <a class="btn btn-primary" href="mailto:raghumante@gmail.com">Email me</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/raghunandan-mante/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn btn-ghost" href="https://github.com/raghunandan-16" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © <span id="year"></span> Raghunandan Ganesh Mante - built with HTML, CSS &amp; JS, deployed on GitHub Pages.
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const menuBtn = document.getElementById('menuBtn');
+  const navLinks = document.getElementById('navLinks');
+  menuBtn.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
