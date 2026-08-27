@@ -133,10 +133,12 @@
   .hero{padding:72px 0 60px;}
   .hero-top{display:flex; flex-wrap:wrap; gap:40px; align-items:flex-start; justify-content:space-between;}
   .hero-avatar{
-    width:150px; height:200px;
-    border:2px solid var(--border-bright);
-    flex-shrink:0;
-  }
+  width:220px;
+  height:auto;   /* ← this is the key line */
+  border-radius:8px;
+  border:2px solid var(--border-bright);
+  flex-shrink:0;
+}
   @media (max-width:760px){
     .hero-avatar{width:100px; height:100px; margin:0 auto;}
   }
